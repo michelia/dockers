@@ -1,3 +1,3 @@
 FROM elasticsearch:2.1
-MAINTAINER CathoLabs <github.com/michelia>
+MAINTAINER michelia
 RUN plugin -i elasticsearch/marvel/latest
