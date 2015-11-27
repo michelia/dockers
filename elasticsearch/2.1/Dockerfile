@@ -1,3 +1,3 @@
 FROM elasticsearch:2.1
 MAINTAINER michelia
-RUN plugin -i elasticsearch/marvel/latest
+RUN /usr/share/elasticsearch/bin/plugin -i elasticsearch/marvel/latest
