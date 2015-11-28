@@ -5,5 +5,9 @@ MAINTAINER michelia <github.com/michelia>
 #     && export ES_HOME=/usr/share/elasticsearch  \
 #     && cd $ES_HOME  \
 #     && bin/plugin -i elasticsearch/marvel/latest
-RUN plugin install license
-RUN plugin install marvel-agent
+# RUN plugin install license
+# RUN plugin install marvel-agent
+
+RUN apt-get update \
+    && apt-get install vim
+    
