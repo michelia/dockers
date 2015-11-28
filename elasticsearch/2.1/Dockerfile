@@ -9,5 +9,5 @@ MAINTAINER michelia <github.com/michelia>
 # RUN plugin install marvel-agent
 
 RUN apt-get update \
-    && apt-get install vim
+    && apt-get install -y vim
     
