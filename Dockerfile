@@ -5,31 +5,69 @@ COPY sources.list /etc/apt/sources.list
 
 RUN apt-get update
 RUN apt-get install -y \
-        python3-dev \
+        build-essential \
+        checkinstall \
+        gcc \
+        locales \
+        libffi-dev \
         libfreetype6-dev \
         libjpeg-dev \
+        libmysqlclient-dev \
         libsqlite3-dev \
+        libssl-dev \
         libxml2-dev \
         libxslt-dev \
+        libxslt1-dev \
+        make \
+        python3-dev \
+        sshpass \
+        zlib1g-dev \
         git \
         curl \
         wget \
-        sshpass \
+        man \
         openssh-server \
+        zsh \
+        autojump \
+        tree \
+        lrzsz \
+        net-tools \
+        iputils-ping \
         vim
 
-COPY install.sh /root/install.sh 
-COPY bashrc.sh /root/bashrc.sh 
-# # 执行个性化配置的安装
-RUN cd /root/ && bash install.sh
+# 安装 oh-my-zsh
+RUN git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
+    && cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc \
+    && chsh -s /bin/zsh
+
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+ENV TERM xterm
+
+
+WORKDIR /root
 
 # 下载 Go
-# ADD https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz /root/go1.9.linux-amd64.tar.gz
-COPY go1.9.linux-amd64.tar.gz /root/go1.9.linux-amd64.tar.gz
+# ADD https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz go1.9.linux-amd64.tar.gz
+COPY go1.9.linux-amd64.tar.gz go1.9.linux-amd64.tar.gz
 
 # 下载 Python
-# ADD https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz /root/Python-3.6.2.tgz
-COPY Python-3.6.2.tgz /root/Python-3.6.2.tgz
+# ADD https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz Python-3.6.2.tgz
+COPY Python-3.6.2.tgz Python-3.6.2.tgz
+
+# 执行个性化配置的安装
+COPY init.sh init.sh 
+COPY bashrc.sh bashrc.sh 
+COPY zshrc.sh zshrc.sh
+COPY zsh_prompt zsh_prompt
+
+RUN bash init.sh
+RUN cat bashrc.sh >> .bashrc
+RUN cp zshrc.sh .zshrc
+RUN rm bashrc.sh init.sh zshrc.sh zsh_prompt
+
 
 #################################################
 # 配置sshd环境
@@ -47,6 +85,9 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
 #################################################
 
-# CMD /bin/bash
-CMD ["/usr/sbin/sshd", "-D"]
+# 相当于开机启动
+ENTRYPOINT /etc/rc.local
 
+# CMD /bin/bash
+# 启动 sshd
+CMD ["/usr/sbin/sshd", "-D"]

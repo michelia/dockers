@@ -1,11 +1,16 @@
 
+export ZSH=~/.oh-my-zsh
+plugins=(git)
+ZSH_THEME="robbyrussell"
+source $ZSH/oh-my-zsh.sh
+
 export EDITOR=/usr/bin/vim
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
-export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \n$ '
 
 export PATH=$PATH:/usr/local/go/bin
+
 
 
 # 常用命令别名
@@ -44,6 +49,5 @@ alias gpull="git pull"
 
 # 加载 python env
 source ~/pyenv/bin/activate
-
 
 

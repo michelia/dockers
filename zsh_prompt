@@ -1,0 +1,3 @@
+
+PROMPT='${ret_status} %{$fg[cyan]%}%d%{$reset_color%} $(git_prompt_info)
+> '
