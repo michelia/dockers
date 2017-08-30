@@ -35,6 +35,9 @@ RUN apt-get install -y \
         iputils-ping \
         vim
 
+# 切换下面执行的目录
+WORKDIR /root
+
 # 安装 oh-my-zsh
 RUN git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
     && cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc \
@@ -52,7 +55,6 @@ ENV LC_ALL en_US.UTF-8
 ENV TERM xterm
 
 
-WORKDIR /root
 
 # 下载 Go
 # ADD https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz go1.9.linux-amd64.tar.gz
