@@ -95,4 +95,4 @@ EXPOSE 22
 
 # /bin/bash /etc/rc.local 自动执行bash 相当于开机启动 (此开机指的是容器)
 # /usr/sbin/sshd -D  启动 sshd
-ENTRYPOINT /bin/bash /etc/rc.local && /usr/sbin/sshd -D
+ENTRYPOINT /etc/rc.local && /usr/sbin/sshd -D
