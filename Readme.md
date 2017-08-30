@@ -5,3 +5,4 @@
 - zsh(oh-my-zsh)
 - 自动执行bash
 
+#### 使用脚本见`usage.sh`
