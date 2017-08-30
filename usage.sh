@@ -2,19 +2,25 @@
 # gopython 是镜像,  con 是容器
 docker build -t gopython .
 
-# -p 把22绑定到主机的2222端口, -P 并开启随机端口
-docker stop con; docker rm con
+# -P 开启随机端口,  -p 把22绑定到主机的2222端口, 
 docker run -d \
     --name con \
     -h mi \
     -P \
     -p 2222:22 \
     -p 2380:2380 \
+    -p 8001:8001 \
+    -p 8002:8002 \
+    -p 8003:8003 \
+    -p 8004:8004 \
+    -p 8005:8005 \
+    -p 8006:8006 \
     -v d:/:/d \
     -v e:/:/e \
     -v f:/:/f \
-    gopython \
+    gopython
 
+docker stop con; docker rm con
 # 查看使用的端口
 docker port con
 

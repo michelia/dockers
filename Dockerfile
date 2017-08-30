@@ -40,6 +40,8 @@ RUN git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
     && cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc \
     && chsh -s /bin/zsh
 
+
+# 安装 en_US.UTF-8
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
@@ -58,15 +60,21 @@ COPY go1.9.linux-amd64.tar.gz go1.9.linux-amd64.tar.gz
 COPY Python-3.6.2.tgz Python-3.6.2.tgz
 
 # 执行个性化配置的安装
-COPY init.sh init.sh 
-COPY bashrc.sh bashrc.sh 
-COPY zshrc.sh zshrc.sh
+# 更改zsh_prompt(覆盖PROMPT变量的值)
 COPY zsh_prompt zsh_prompt
+RUN  cat zsh_prompt >> .oh-my-zsh/themes/robbyrussell.zsh-theme
+RUN rm zsh_prompt
 
-RUN bash init.sh
-RUN cat bashrc.sh >> .bashrc
+COPY zshrc.sh zshrc.sh
 RUN cp zshrc.sh .zshrc
-RUN rm bashrc.sh init.sh zshrc.sh zsh_prompt
+RUN rm zshrc.sh
+COPY bashrc.sh bashrc.sh 
+RUN cat bashrc.sh >> .bashrc
+RUN rm bashrc.sh
+
+COPY init.sh init.sh 
+RUN bash init.sh
+RUN rm init.sh
 
 
 #################################################
@@ -85,9 +93,6 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
 #################################################
 
-# 相当于开机启动
-ENTRYPOINT /etc/rc.local
-
-# CMD /bin/bash
-# 启动 sshd
-CMD ["/usr/sbin/sshd", "-D"]
+# /bin/bash /etc/rc.local 相当于开机启动 (此开机指的是容器)
+# /usr/sbin/sshd -D  启动 sshd
+ENTRYPOINT /bin/bash /etc/rc.local && /usr/sbin/sshd -D
