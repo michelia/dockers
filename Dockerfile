@@ -39,7 +39,10 @@ RUN apt-get install -y \
 RUN git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
     && cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc \
     && chsh -s /bin/zsh
-
+# 更改zsh_prompt(覆盖PROMPT变量的值)
+COPY zsh_prompt zsh_prompt
+RUN  cat zsh_prompt >> .oh-my-zsh/themes/robbyrussell.zsh-theme
+RUN rm zsh_prompt
 
 # 安装 en_US.UTF-8
 RUN locale-gen en_US.UTF-8
@@ -60,11 +63,6 @@ COPY go1.9.linux-amd64.tar.gz go1.9.linux-amd64.tar.gz
 COPY Python-3.6.2.tgz Python-3.6.2.tgz
 
 # 执行个性化配置的安装
-# 更改zsh_prompt(覆盖PROMPT变量的值)
-COPY zsh_prompt zsh_prompt
-RUN  cat zsh_prompt >> .oh-my-zsh/themes/robbyrussell.zsh-theme
-RUN rm zsh_prompt
-
 COPY zshrc.sh zshrc.sh
 RUN cp zshrc.sh .zshrc
 RUN rm zshrc.sh
@@ -93,6 +91,6 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
 #################################################
 
-# /bin/bash /etc/rc.local 相当于开机启动 (此开机指的是容器)
+# /bin/bash /etc/rc.local 自动执行bash 相当于开机启动 (此开机指的是容器)
 # /usr/sbin/sshd -D  启动 sshd
 ENTRYPOINT /bin/bash /etc/rc.local && /usr/sbin/sshd -D
