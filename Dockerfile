@@ -97,6 +97,9 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
 #################################################
 
+RUN apt-get clean && \ 
+    rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # /bin/bash /etc/rc.local 自动执行bash 相当于开机启动 (此开机指的是容器)
 # /usr/sbin/sshd -D  启动 sshd
 ENTRYPOINT /etc/rc.local && /usr/sbin/sshd -D
