@@ -33,6 +33,7 @@ RUN apt-get install -y \
         lrzsz \
         net-tools \
         iputils-ping \
+        cron \
         vim
 
 # 切换下面执行的目录
@@ -64,7 +65,7 @@ COPY go1.9.linux-amd64.tar.gz go1.9.linux-amd64.tar.gz
 # ADD https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz Python-3.6.2.tgz
 COPY Python-3.6.2.tgz Python-3.6.2.tgz
 
-# 执行个性化配置的安装
+########## 执行个性化配置的安装
 COPY zshrc.sh zshrc.sh
 RUN cp zshrc.sh .zshrc
 RUN rm zshrc.sh
@@ -75,7 +76,9 @@ RUN rm bashrc.sh
 COPY init.sh init.sh 
 RUN bash init.sh
 RUN rm init.sh
-
+# 时区  Asia/Shanghai
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 #################################################
 # 配置sshd环境
