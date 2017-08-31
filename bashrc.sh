@@ -14,15 +14,14 @@ alias ls="ls --color -h --group-directories-first"
 alias ll="ls --color -hlF --time-style=long-iso --group-directories-first"
 alias lll="ls --color -hlLFa --time-style=long-iso --group-directories-first"
 alias la="ls --color -A --group-directories-first --time-style=long-iso"
-alias ..="cd .."
 alias ln="ln -s"
 alias le="less -S -i"
 alias dul="du -sh *"
 alias dua="du -sh"
-alias e="explorer ."
 alias h="history"
 alias gopath="go env GOPATH"
-alias psl="ps aux"
+alias psl='ps ux --sort=-%cpu | less -S'
+alias psa='ps aux --sort=-%cpu | less -S'
 alias hle="history | le"
 
 # git alias

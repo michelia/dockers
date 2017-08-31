@@ -1,10 +1,10 @@
 
 # gopython 是镜像,  con 是容器
-docker build -t gopython .
+docker build -t dev .
 
 # -P 开启随机端口,  -p 把22绑定到主机的2222端口, 
 docker run -d \
-    --name con \
+    --name dev \
     -h mi \
     -P \
     -p 2222:22 \
@@ -18,7 +18,7 @@ docker run -d \
     -v d:/:/d \
     -v e:/:/e \
     -v f:/:/f \
-    gopython
+    dev
 
 docker stop con; docker rm con
 # 查看使用的端口
