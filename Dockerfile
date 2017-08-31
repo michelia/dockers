@@ -97,6 +97,7 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
 #################################################
 
+# apt清理
 RUN apt-get clean && \ 
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
