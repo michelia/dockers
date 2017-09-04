@@ -35,6 +35,7 @@ RUN apt-get install -y \
         iputils-ping \
         cron \
         tzdata \
+        screen \
         vim
 
 # 切换下面执行的目录
