@@ -5,7 +5,7 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \n$ '
 
-export PATH=$PATH:/usr/local/go/bin
+# export PATH=$PATH:/usr/local/go/bin
 
 
 # 常用命令别名
@@ -31,18 +31,6 @@ alias gc="git commit -v"
 alias gcm="gc -m"
 alias gpush="git push"
 alias gpull="git pull"
-
-
-# # git 代理
-# alias gitproxy="cd /d/Files/authproxy; nohup ./authproxy64.exe &"
-
-# # 日常环境
-# alias getproxy="export http_proxy=http://127.0.0.1:7777; export https_proxy=http://127.0.0.1:7777"
-# alias dev="cd /e/Dev"
-# alias tcm="export GOPATH=/e/Dev/TCMDataBank-Demo-Golang; cd /e/Dev/TCMDataBank-Demo-Golang/src/ipxy/project/TCMDataBankDemo/"
-
-# 加载 python env
-source ~/pyenv/bin/activate
 
 
 
