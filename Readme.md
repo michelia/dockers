@@ -9,13 +9,15 @@
 # ubuntussh 是镜像,  ussh 是容器
 docker build -t ubuntussh .
 
-# -P 开启随机端口,  -p 把22绑定到主机的2200端口, 
+# -P 开启随机端口,  -p 把22绑定到主机的2200端口
+```
 docker run -d \
     --name ussh \
     -h ussh \
     -P \
     -p 2200:22 \
     ubuntussh
+```
 
 docker stop ussh; docker rm ussh
 # 查看使用的端口
@@ -35,6 +37,7 @@ docker rmi ubuntussh
 # ssh连接 ::1 或 localhost
 ssh root@::1 -p 2200
 
+```
 docker run -d \
     --name ussh01 \
     -h ussh01 \
@@ -62,4 +65,4 @@ docker run -d \
     -P \
     -p 2204:22 \
     ubuntussh
-
+```
